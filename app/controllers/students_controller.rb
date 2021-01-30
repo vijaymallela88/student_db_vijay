@@ -4,7 +4,7 @@ class StudentsController < ApplicationController
   # layout false, only: [:new, :create]
   
   def index
-    @students = Student.all
+    @students = Student.where(:status => "created")
   end
 
   
@@ -15,12 +15,31 @@ class StudentsController < ApplicationController
     @student = Student.new
   end
 
+  def pending_students
+    @students = Student.where(:status => "pending")
+  end
+
+  def approve_student
+      @student = Student.find(params[:format])
+      if @student.update(:status => "created")
+        flash[:notice] = "Approved Successfully"
+        redirect_to students_path
+      else
+        flash[:notice] = "Not Approved"
+        redirect_to students_pending_students_path
+      end
+  end
+
   def edit
   end
 
   def create
     @student = Student.new(student_params)
-    
+    if user_signed_in?
+      @student.update(:status => "created")
+    else
+      @student.update(:status => "pending")
+    end
     respond_to do |format|
       if @student.save
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
@@ -58,6 +77,6 @@ class StudentsController < ApplicationController
     end
 
     def student_params
-      params.require(:student).permit(:full_name, :address, :mobile, :institution_id)
+      params.require(:student).permit(:full_name, :address, :mobile, :institution_id, :status)
     end
 end
