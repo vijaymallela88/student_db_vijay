@@ -13,22 +13,22 @@
 
   <div class="form-group">
     <%= form.label :full_name %>
-    <%= form.text_field :full_name, class: "form-control" %>
+    <%= form.text_field :full_name, :required => true, class: "form-control" %>
   </div>
 
   <div class="form-group">
     <%= form.label :address %>
-    <%= form.text_area :address, class: "form-control" %>
+    <%= form.text_area :address, :required => true, class: "form-control" %>
   </div>
 
   <div class="form-group">
     <%= form.label :mobile %>
-    <%= form.text_field :mobile, class: "form-control" %>
+    <%= form.text_field :mobile, :required => true, class: "form-control" %>
   </div>
 
   <div class="form-group">
     <%= form.label :institution_id %>
-    <%= form.select :institution_id, options_from_collection_for_select(Institution.all, :id, :name), {}, class: "form-control form-control-lg" %>
+    <%= form.select :institution_id, options_from_collection_for_select(Institution.all, :id, :name), {}, :required => true , class: "form-control form-control-lg" %>
   </div>
 
   <div class="actions">
