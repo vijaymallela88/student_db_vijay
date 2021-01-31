@@ -7,10 +7,10 @@
 <table class='table'>
   <thead>
     <tr>
-      <th>Full name</th>
+      <th><%= sortable "full_name", "Full Name" %></th>
       <th>Address</th>
       <th>Phone</th>
-      <th>Institution</th>
+      <th><%= sortable "name", "Institution" %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -28,3 +28,4 @@
     <% end %>
   </tbody>
 </table>
+<%= will_paginate @students,renderer: BootstrapPagination::Rails, class: 'btn' %>

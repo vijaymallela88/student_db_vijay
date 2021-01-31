@@ -2,15 +2,15 @@
 
 <h1>Pending Students</h1>
 
-<%#= render "search_form" %>
+<%= render "search_form" %>
 <%if @students.present?%>
 <table class='table'>
   <thead>
     <tr>
-      <th>Full name</th>
+      <th><%= sortable "full_name", "Full Name" %></th>
       <th>Address</th>
       <th>Phone</th>
-      <th>Institution</th>
+      <th><%= sortable "name", "Institution" %></th>
       <th>Status</th>
       <th colspan="2"></th>
     </tr>
@@ -29,6 +29,7 @@
     <% end %>
   </tbody>
 </table>
+<%= will_paginate @students,renderer: BootstrapPagination::Rails, class: 'btn' %>
 <%else%>
 No data
 <%end%>

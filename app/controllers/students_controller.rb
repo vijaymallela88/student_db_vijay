@@ -1,10 +1,10 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
-  # skip_before_action :authenticate_user!, only: [:new, :create]
-  # layout false, only: [:new, :create]
+  skip_before_action :authenticate_user!, only: [:new, :create]
   
   def index
-    @students = Student.where(:status => "created")
+    @students_all = StudentsQuery.call(Student.all, params)
+    @students = @students_all.paginate(:page=>params[:page],per_page:5)
   end
 
   
@@ -16,7 +16,9 @@ class StudentsController < ApplicationController
   end
 
   def pending_students
-    @students = Student.where(:status => "pending")
+    # @students = Student.where(:status => "pending")
+    @students_all = StudentsQuery.call(Student.all, params)
+    @students = @students_all.paginate(:page=>params[:page],per_page:5)
   end
 
   def approve_student

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'students/approve_student' => 'students#approve_student'
   resources :students
   resources :institutions
-  root :to => 'home#index'
+  root :to => 'students#new'
   devise_for :users, controllers: { registrations: "registrations"}
 
 end

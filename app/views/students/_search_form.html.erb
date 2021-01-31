@@ -1,5 +1,10 @@
 <%#= form_with path: students_path, method: :get do |f| %>
-<%= form_with(path: students_path, method: :get) do |f| %>
+<%if params[:action] == "pending_students"%>
+  <% root_path_name = students_pending_students_path %>
+<%else%>
+  <% root_path_name = students_path %>
+<%end%>
+<%= form_with(path: students_path, method: :get, local: true) do |f| %>
   <div class="form-row align-items-center">
     <div class="col-sm-3 my-1">
       <%= text_field_tag(:student_name, '', class: "form-control", placeholder: "Student name") %>
